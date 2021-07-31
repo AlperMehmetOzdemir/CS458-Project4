@@ -18,17 +18,112 @@
       my-4
     "
   >
-    <form action="/" method="POST" class="p-4 border border-rounded">
+    <form
+      action="/signup"
+      method="POST"
+      class="p-4 border rounded requires-validation"
+      novalidate
+    >
       <div class="pb-3">
         <label for="inputEmail" class="form-label">Email address</label>
         <input
           type="email"
+          name="email"
           class="form-control"
           id="inputEmail1"
           aria-describedby="emailHelp"
+          required
         />
         <div id="emailHelp" class="form-text">
           Enter your email address that you want to register with.
+        </div>
+        <div class="valid-feedback">Email is valid.</div>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+      </div>
+
+      <div class="pb-3">
+        <label for="inputName" class="form-label">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputName"
+          name="name"
+          aria-describedby="nameHelp"
+          pattern="/\p{L}/gu"
+          title="Name should only contain letters and whitespaces."
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your name (only letters and spaces allowed).
+        </div>
+      </div>
+
+      <div class="pb-3">
+        <label for="inputLastName" class="form-label">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputLastName"
+          name="lastName"
+          aria-describedby="lastNameHelp"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your last name (only letters and spaces allowed).
+        </div>
+      </div>
+
+      <div class="pb-3">
+        <label for="inputAge" class="form-label">Age</label>
+        <input
+          type="number"
+          min="1"
+          max="142"
+          class="form-control"
+          id="inputAge"
+          aria-describedby="ageHelp"
+          required
+        />
+        <div class="invalid-feedback">
+          Enter a number between 1 and 142.
+        </div>        
+      </div>
+
+      <div class="pb-3">
+        <p>Gender</p>
+        <div class="d-flex justify-content-evenly">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="genderInput"
+              id="genderInputMale"
+              value="male"
+            />
+            <label class="form-check-label" for="genderInputMale">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="genderInput"
+              id="genderInputFemale"
+              value="female"
+            />
+            <label class="form-check-label" for="genderInputFemale"
+              >Female</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="genderInput"
+              id="genderInputOther"
+              value="other"
+            />
+            <label class="form-check-label" for="genderInputOther">Other</label>
+          </div>
         </div>
       </div>
 
@@ -37,12 +132,17 @@
         <input
           type="password"
           id="inputPassword"
+          name="password"
           class="form-control"
           aria-describedby="passwordHelpBlock"
+          required
         />
         <div id="passwordHelpBlock" class="form-text">
           Your password must be 8-20 characters long, contain letters and
           numbers, and must not contain spaces, special characters, or emoji.
+        </div>
+        <div class="invalid-feedback">
+          Please follow the format described above.
         </div>
       </div>
 
@@ -55,14 +155,42 @@
           id="inputConfirmPassword"
           class="form-control"
           aria-describedby="confirmPasswordHelpBlock"
+          required
         />
-        <div id="confirmPasswordHelpBlock" class="form-text">
-          Enter the same password you entered in the previous field.
+        <div class="invalid-feedback">
+          Your passwords do not match.
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Sign Up</button>
+
+      <div class="d-flex justify-content-evenly">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <a href="/login" class="btn btn-outline-primary"
+          >I already have an account</a
+        >
+      </div>
     </form>
   </section>
 </main>
+
+<script type="text/javascript">
+  (function () {
+    "use strict";
+    const forms = document.querySelectorAll(".requires-validation");
+    Array.from(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>
 
 <%- include("./partials/footer.ejs") %>

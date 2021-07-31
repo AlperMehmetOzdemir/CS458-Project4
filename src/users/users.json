@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "email": "amehmet97@hotmail.com",
+    "name": "Alper Mehmet",
+    "last_name": "Özdemir",
+    "genderInput": "male",
+    "password": "Pass2021",
+    "gender": 0,
+    "data": []
+  }
+]

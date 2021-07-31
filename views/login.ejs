@@ -18,14 +18,16 @@
       my-4
     "
   >
-    <form action="/" method="POST" class="p-4 border border-rounded">
+    <form action="/login" method="POST" class="p-4 border rounded">
       <div class="pb-3">
         <label for="inputEmail" class="form-label">Email address</label>
         <input
           type="email"
+          name="email"
           class="form-control"
           id="inputEmail1"
           aria-describedby="emailHelp"
+          required
         />
         <div id="emailHelp" class="form-text">
           Enter your email address that you want to register with.
@@ -37,8 +39,10 @@
         <input
           type="password"
           id="inputPassword"
+          name="password"
           class="form-control"
           aria-describedby="passwordHelpBlock"
+          required
         />
         <div id="passwordHelpBlock" class="form-text">
           Your password must be 8-20 characters long, contain letters and
