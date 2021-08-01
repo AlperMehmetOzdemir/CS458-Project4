@@ -157,7 +157,21 @@ app.post("/symptoms/:id", (req, res) => {
 
     req.session.user = utils.addUserSymptoms(req.params.id, symptoms);
 
-    res.render("symptoms", {user: req.session.user});
+    res.render("symptoms", { user: req.session.user });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+// @desc  Update a users vaccination
+// @route POST /symptoms/:id/vaccination
+app.post("/symptoms/:id/vaccination", (req, res) => {
+  if (req.session.user && req.params.id == req.session.user.id) {
+    const vaccination = req.body.vaccination;
+
+    req.session.user = utils.updateUserVaccination(req.params.id, vaccination);
+
+    res.render("symptoms", { user: req.session.user });
   } else {
     res.redirect("/login");
   }
