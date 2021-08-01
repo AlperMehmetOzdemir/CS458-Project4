@@ -4,20 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout=3000",
-    "coverage": "nyx report --reporter=html",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "test": "nyc mocha --recursive --timeout=3000",
+    "coverage": "nyc report --reporter=html",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.4",
+    "chai-dom": "^1.9.0",
+    "chai-http": "^4.3.0",
+    "jsdom": "^16.6.0",
     "mocha": "^9.0.2",
     "nodemon": "^2.0.12",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "supertest": "^6.1.4",
+    "supertest-session": "^4.1.0"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
