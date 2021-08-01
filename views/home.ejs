@@ -18,80 +18,22 @@
       my-4
     "
   >
-    <form action="/home" method="POST" class="p-4 border border-rounded">
-      <div class="pb-3">
-        <label for="inputName" class="form-label">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputName"
-          name="name"
-          aria-describedby="nameHelp"
-          placeholder="<%= locals.user && user.name%>"
-        />
-        <div id="nameHelp" class="form-text">Update your name.</div>
-      </div>
-      <div class="pb-3">
-        <label for="inputLastName" class="form-label">Last Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputLastName"
-          name="last_name"
-          aria-describedby="lastNameHelp"
-          placeholder="<%= locals.user && user.last_name%>"
-        />
-        <div id="lastNameHelp" class="form-text">Update your last name.</div>
-      </div>
-      <div class="pb-3">
-        <label for="inputAge" class="form-label">Age</label>
-        <input
-          type="number"
-          min="1"
-          max="142"
-          class="form-control"
-          id="inputAge"
-          aria-describedby="ageHelp"
-          placeholder="<%= locals.user && user.age%>"
-        />
-        <div id="ageHelp" class="form-text">Update your age.</div>
-      </div>
-      <div class="pb-3">
-        <p>Gender</p>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="genderInput"
-            id="genderInputMale"
-            value="male"
-          />
-          <label class="form-check-label" for="genderInputMale">Male</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="genderInput"
-            id="genderInputFemale"
-            value="female"
-          />
-          <label class="form-check-label" for="genderInputFemale">Female</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="genderInput"
-            id="genderInputOther"
-            value="other"
-          />
-          <label class="form-check-label" for="genderInputOther">Other</label>
-        </div>
-      </div>
+    <h2>
+      Welcome to the Covid Symptoms Monitoring application <%= user.name %>.
+    </h2>
 
-      <button type="submit" class="btn btn-primary">Update user info</button>
-    </form>
+    <div>
+      You can view and update your profile information from the
+      <a href="/profile/<%= user.id %>">profile page</a>.
+    </div>
+    <div>
+      You can view and enter your symptoms from the
+      <a href="/sypmtoms/<%= user.id %>">sypmtoms page</a>.
+    </div>
+    <div>
+      <a href="/profile/<%= user.id %>" class="btn btn-primary">Profile</a>
+      <a href="/symptoms/<%= user.id %>" class="btn btn-primary">Symptoms</a>
+    </div>
   </section>
 </main>
 

@@ -49,6 +49,7 @@ function signup(user) {
 
   if (isUserRegistered.status === UserRegistrationStatus.USER_NOT_REGISTERED) {
     user.data = [];
+    user.id = users.length + 1;
     users.push(user);
 
     fs.writeFile(

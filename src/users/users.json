@@ -7,5 +7,15 @@
     "password": "Pass2021",
     "gender": 0,
     "data": []
+  },
+  {
+    "email": "test@email.com",
+    "name": "John",
+    "lastName": "Doe",
+    "age": "24",
+    "gender": "male",
+    "password": "12345678",
+    "data": [],
+    "id": 2
   }
 ]

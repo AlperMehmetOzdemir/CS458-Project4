@@ -1,0 +1,84 @@
+<%- include("./partials/head.ejs", {pageTitle: "Profile"}) %>
+
+<main class="container my-4">
+  <header
+    class="row col-xs col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center"
+  >
+    <h1>Profile Page</h1>
+  </header>
+
+  <section
+    class="
+      row
+      col-xs col-sm-10
+      offset-sm-1
+      col-md-8
+      offset-md-2
+      col-lg-6
+      offset-lg-3
+      my-4
+    "
+  >
+    <h2><%= user.name %>'s Profile Page'</h2>
+
+    <div class="card">
+      <div class="card-header">Profile Details</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Name: <%= user.name %></li>
+        <li class="list-group-item">Last name: <%= user.lastName %></li>
+        <li class="list-group-item">Email: <%= user.email %></li>
+        <li class="list-group-item">Age: <%= user.age %></li>
+        <li class="list-group-item">Gender: <%= user.gender %></li>
+        <li class="list-group-item">Vaccination: <%= user.vaccination || "Not vaccinated"%></li>
+        <li class="list-group-item"></li>
+      </ul>
+    </div>
+
+    <form
+      action="/profile/<%= user.id %>"
+      method="POST"
+      class="p-4 border rounded"
+    >
+      <h4>Update Profile information</h4>
+
+      <div class="pb-3">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          id="inputEmail"
+          aria-describedby="emailHelp"
+          value="<%= user.email %>"
+          required
+        />
+        <div id="emailHelp" class="form-text">Update your email address</div>
+        <div class="valid-feedback">Email is valid.</div>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+      </div>
+
+      <div class="pb-3">
+        <label for="inputAge" class="form-label">Age</label>
+        <input
+          type="number"
+          min=1
+          max=142
+          name="age"
+          class="form-control"
+          id="inputAge"
+          aria-describedby="ageHelp"
+          value="<%= user.age %>"
+          required
+        />
+        <div id="ageHelp" class="form-text">Update your age</div>
+        <div class="invalid-feedback">
+          Please enter an age between 1 and 142.
+        </div>
+      </div>
+
+      <button class="btn btn-primary">Update Profile</button>
+    </form>
+  </section>
+</main>
+
+<%- include("./partials/footer.ejs") %>
