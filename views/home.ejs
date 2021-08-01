@@ -6,20 +6,9 @@
     <h1>Home Page</h1>
   </header>
 
-  <section
-    class="
-      row
-      col-xs col-sm-10
-      offset-sm-1
-      col-md-8
-      offset-md-2
-      col-lg-6
-      offset-lg-3
-      my-4
-    "
-  >
+  <section class="row col-xs col-sm-10 offset-sm-1 my-4">
     <h2>
-      Welcome to the Covid Symptoms Monitoring application <%= user.name %>.
+      Welcome to the Covid Monitoring application <%= user.name %>.
     </h2>
 
     <div>
@@ -30,8 +19,8 @@
       You can view and enter your symptoms from the
       <a href="/sypmtoms/<%= user.id %>">sypmtoms page</a>.
     </div>
-    <div>
-      <a href="/profile/<%= user.id %>" class="btn btn-primary">Profile</a>
+    <div class="my-2">
+      <a href="/profile/<%= user.id %>" class="btn btn-primary me-2">Profile</a>
       <a href="/symptoms/<%= user.id %>" class="btn btn-primary">Symptoms</a>
     </div>
   </section>
