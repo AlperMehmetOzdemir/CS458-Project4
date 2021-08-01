@@ -13,3 +13,34 @@
     <title>Covid Monitoring <%= locals.pageTitle ? `| ${pageTitle}` : null  %></title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid d-flex justify-content-between">
+        <a class="navbar-brand" href="/home">Covid Monitoring</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ms-auto me-0" id="navbarNav">
+          <ul class="navbar-nav">
+            <% if(locals.user){ %>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/<%= user.id %>">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/symptoms/<%= user.id %>">Symptoms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+
+            <% }%>
+          </ul>
+        </div>
+      </div>
+    </nav>

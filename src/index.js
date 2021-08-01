@@ -21,9 +21,9 @@ app.use(
 // @route GET /
 app.get("/", (req, res) => {
   if (req.session.user) {
-    res.redirect("home");
+    res.redirect("/home");
   } else {
-    res.redirect("login");
+    res.redirect("/login");
   }
 });
 
@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 // @route GET /signup
 app.get("/signup", (req, res) => {
   if (req.session.user) {
-    res.redirect("home");
+    res.redirect("/home");
   } else {
     res.render("signup");
   }
@@ -46,7 +46,7 @@ app.post("/signup", (req, res) => {
 
   if (options.user) {
     req.session.user = options.user;
-    res.redirect("home");
+    res.redirect("/home");
   } else {
     res.render("signup");
   }
@@ -56,8 +56,7 @@ app.post("/signup", (req, res) => {
 // @route GET /login
 app.get("/login", (req, res) => {
   if (req.session.user) {
-    console.log(req.session.user);
-    res.redirect("home");
+    res.redirect("/home");
   } else {
     res.render("login");
   }
@@ -66,13 +65,11 @@ app.get("/login", (req, res) => {
 // @desc  Attempt to login user with login form data
 // @route POST /login
 app.post("/login", (req, res) => {
-  console.log("login request body: ", req.body);
   const options = utils.login(req.body);
 
-  console.log("login options: ", options);
   if (options.user) {
     req.session.user = options.user;
-    res.redirect("home");
+    res.redirect("/home");
   } else {
     res.render("login", options);
   }
@@ -81,9 +78,8 @@ app.post("/login", (req, res) => {
 // @desc User homepage that serves as a hub for accesing different user information.
 // @route GET /home
 app.get("/home", (req, res) => {
-  console.log("user is: ", req.session.user);
   if (!req.session.user) {
-    res.redirect("login");
+    res.redirect("/login");
   } else {
     res.render("home", { user: req.session.user });
   }
@@ -95,21 +91,21 @@ app.get("/profile/:id", (req, res) => {
   if (req.session.user && req.params.id == req.session.user.id) {
     res.render("profile", { user: req.session.user });
   } else {
-    res.redirect("login");
+    res.redirect("/login");
   }
 });
 
 // @desc  Request to change user profile information
 // @route POST /profile/:id
 app.post("/profile/:id", (req, res) => {
-  if (req.session.user && req.params.id == req.session.user.id){
-    const formData = req.body;
-    console.log(formData)
+  if (req.session.user && req.params.id == req.session.user.id) {
+    const { email, age } = req.body;
 
-    
+    req.session.user = utils.updateUserProfile(req.params.id, email, age);
 
+    res.render("profile", { user: req.session.user });
   } else {
-    res.redirect("login")
+    res.redirect("/login");
   }
 });
 
@@ -119,17 +115,16 @@ app.get("/symptoms/:id", (req, res) => {
   if (req.session.user && req.params.id == req.session.user.id) {
     res.render("symptoms", { user: req.session.user });
   } else {
-    res.redirect("login");
+    res.redirect("/login");
   }
 });
 
 // @desc  Users can post thier vaccination status and their daily symptoms.
 // @route POST /symptoms/:id
 app.post("/symptoms/:id", (req, res) => {
-  if (req.session.user && req.params.id == req.session.user.id){
-
+  if (req.session.user && req.params.id == req.session.user.id) {
   } else {
-    res.redirect("login")
+    res.redirect("/login");
   }
 });
 

@@ -1,8 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const users_file = "users.json";
-const users = JSON.parse(
+let users = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "../users/users.json"))
 );
 
@@ -13,11 +12,7 @@ const UserRegistrationStatus = {
 };
 
 function login(user) {
-  console.log("user email is: ", user.email);
-  console.log("user password is: ", user.password);
   let isUserRegistered = checkUserRegistration(user.email, user.password);
-
-  console.log(isUserRegistered);
 
   let options;
   switch (isUserRegistered.status) {
@@ -73,21 +68,14 @@ function signup(user) {
 }
 
 function checkUserRegistration(userEmail, userPassword) {
-  console.log("checked Email is: ", userEmail);
-  console.log("checked password is: ", userPassword);
-
   for (let i = 0; i < users.length; i++) {
-    console.log("User being compared is: ", users[i]);
     if (users[i].email === userEmail) {
-      console.log("emails equal");
       if (users[i].password == userPassword) {
-        console.log("passwords equal");
         return {
           user: users[i],
           status: UserRegistrationStatus.USER_IS_REGISTERED,
         };
       } else {
-        console.log("passwords are not eqaul");
         return {
           user: null,
           status: UserRegistrationStatus.USER_INVALID_PASSWORD,
@@ -97,6 +85,33 @@ function checkUserRegistration(userEmail, userPassword) {
   }
 
   return { user: null, status: UserRegistrationStatus.USER_NOT_REGISTERED };
+}
+
+function updateUserProfile(userId, newEmail, newAge) {
+  const user = users.filter((user) => user.id == userId)[0];
+  const otherUsers = users.filter((user) => user.id != userId);
+
+  user.email = newEmail;
+  user.age = newAge;
+
+  otherUsers.push(user);
+
+  users = [...otherUsers];
+
+  try {
+    fs.writeFile(
+      path.resolve(__dirname, "../users/users.json"),
+      JSON.stringify(users),
+      (err) => {
+        if (err) {
+          throw err;
+        }
+      }
+    );
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function getUserData(userEmail) {
@@ -109,4 +124,4 @@ function getUserData(userEmail) {
   return { user: null, status: UserRegistrationStatus.USER_NOT_REGISTERED };
 }
 
-module.exports = { login, signup };
+module.exports = { login, signup, updateUserProfile };

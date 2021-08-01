@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc mocha --timeout=3000",
     "coverage": "nyx report --reporter=html",
-    "start": "nodemon src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
