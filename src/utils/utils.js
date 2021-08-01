@@ -114,6 +114,32 @@ function updateUserProfile(userId, newEmail, newAge) {
   }
 }
 
+function addUserSymptoms(userId, symptoms) {
+  const user = users.filter((user) => user.id == userId)[0];
+  const otherUsers = users.filter((user) => user.id != userId);
+
+  user.data.push(symptoms);
+
+  otherUsers.push(user);
+
+  users = [...otherUsers];
+
+  try {
+    fs.writeFile(
+      path.resolve(__dirname, "../users/users.json"),
+      JSON.stringify(users),
+      (err) => {
+        if (err) {
+          throw err;
+        }
+      }
+    );
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 function getUserData(userEmail) {
   users.forEach((user) => {
     if (user.email === userEmail) {
@@ -124,4 +150,4 @@ function getUserData(userEmail) {
   return { user: null, status: UserRegistrationStatus.USER_NOT_REGISTERED };
 }
 
-module.exports = { login, signup, updateUserProfile };
+module.exports = { login, signup, updateUserProfile, addUserSymptoms };

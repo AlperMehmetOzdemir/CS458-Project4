@@ -123,6 +123,41 @@ app.get("/symptoms/:id", (req, res) => {
 // @route POST /symptoms/:id
 app.post("/symptoms/:id", (req, res) => {
   if (req.session.user && req.params.id == req.session.user.id) {
+    // extract form data
+    const {
+      fever,
+      dryCough,
+      fatigue,
+      lossOfTasteOrSmell,
+      achesAndPains,
+      breathingDifficulties,
+      chestPainOrPressure,
+    } = req.body;
+
+    // calculate todays date
+    const today = new Date();
+    const date =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear();
+
+    // create our syptoms object
+    const symptoms = {
+      date: date,
+      fever: fever == "on" ? true : false,
+      dryCough: dryCough == "on" ? true : false,
+      fatigue: fatigue == "on" ? true : false,
+      lossOfTasteOrSmell: lossOfTasteOrSmell == "on" ? true : false,
+      achesAndPains: achesAndPains == "on" ? true : false,
+      breathingDifficulties: breathingDifficulties == "on" ? true : false,
+      chestPainOrPressure: chestPainOrPressure == "on" ? true : false,
+    };
+
+    req.session.user = utils.addUserSymptoms(req.params.id, symptoms);
+
+    res.render("symptoms", {user: req.session.user});
   } else {
     res.redirect("/login");
   }
