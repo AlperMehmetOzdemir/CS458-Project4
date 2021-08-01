@@ -33,7 +33,6 @@ describe("Login Page", function () {
       .request(server)
       .get("/login")
       .end((err, res) => {
-        // console.log(res);
         expect(err).to.be.null;
         htmlDOM = new jsdom.JSDOM(res.text);
         const title = htmlDOM.window.document.querySelector("title");

@@ -79,12 +79,8 @@ app.post("/login", (req, res) => {
 
   if (options.user) {
     req.session.user = options.user;
-    console.log("POST /login - options: ", options);
-    console.log("POST /login - req.session: ", req.session);
     res.redirect("/home");
   } else {
-    console.log("POST /login fail - options: ", options);
-    console.log("POST /login fail - req.session: ", req.session);
 
     res.render("login", options);
   }
@@ -94,7 +90,6 @@ app.post("/login", (req, res) => {
 // @route GET /home
 app.get("/home", (req, res) => {
   if (!req.session.user) {
-    console.log("req.session", req.session);
     res.redirect("/login");
   } else {
     res.render("home", { user: req.session.user });

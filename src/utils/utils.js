@@ -165,20 +165,10 @@ function updateUserVaccination(userId, vaccination) {
     console.error(err);
   }
 }
-
-function getUserData(userEmail) {
-  users.forEach((user) => {
-    if (user.email === userEmail) {
-      return { user, status: UserRegistrationStatus.USER_IS_REGISTERED };
-    }
-  });
-
-  return { user: null, status: UserRegistrationStatus.USER_NOT_REGISTERED };
-}
-
 module.exports = {
   login,
   signup,
+  checkUserRegistration,
   updateUserProfile,
   addUserSymptoms,
   updateUserVaccination,

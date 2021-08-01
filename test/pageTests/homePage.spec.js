@@ -1,39 +1,45 @@
-// const request = require("supertest");
-// const session = require("supertest-session");
-// const jsdom = require("jsdom");
-// const chai = require("chai");
-// const chaiHttp = require("chai-http");
+const request = require("supertest");
+const jsdom = require("jsdom");
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const chaiDom = require("chai-dom");
 
-// chai.use(chaiHttp);
-// const expect = chai.expect;
+chai.use(chaiHttp);
+chai.use(chaiDom);
+const expect = chai.expect;
 
-// const server = require("../../src/server");
+const server = require("../../src/server");
 
-// describe("Logged in users can access the Home page.", function () {
-//   // beforeEach(function (done) {
+describe("Home Page", function () {
+  let htmlDOM;
+  let response;
 
-//   // });
+  after(function () {
+    server.close();
+  });
 
-//   // after(function () {
-//   // });
+  it("should allow users to access it.", function (done) {
+    chai
+      .request(server)
+      .get("/home")
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        done();
+      });
+  });
 
-//   it("should allow logged in users to access it.", function (done) {
-//     chai
-//       .request(server)
-//       .post("/login")
-//       .type("form")
-//       .send({
-//         email: "test@dm.com",
-//         password: "12345678",
-//       })
-//       .end((err, res) => {
-//         // console.log("res is : ", res);
-//         console.log("res headers: ", res.session);
-//         expect(res.status).to.be.equal(200);
-//         expect(res).to.redirectTo("http://localhost:5000/home");
-//         done();
-//       });
-//   });
+  it("should have appropriate metadata", function (done) {
+    chai
+      .request(server)
+      .get("/home")
+      .end((err, res) => {
+        expect(err).to.be.null;
+        htmlDOM = new jsdom.JSDOM(res.text);
+        const title = htmlDOM.window.document.querySelector("title");
+        expect(title.innerHTML).to.have.string("Covid Monitoring | Home");
+        done();
+      });
+  });
 
-//   // it("should have a correct title.", function (done) {});
-// });
+  // it("should have a correct title.", function (done) {});
+});
